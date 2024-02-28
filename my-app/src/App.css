@@ -1,0 +1,101 @@
+.App {
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #343434;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10rem;
+  padding: 10px;
+  margin-top: 2.5rem;
+ 
+}
+
+.grid-item {
+  text-align: left;
+}
+
+.demonstration-box {
+  border: 3px solid white;
+  border-radius: 25px;
+  margin-top: 1.5em;
+  padding: 1.5em;
+}
+
+.button {
+  background-color: #343434;
+  border: 3px solid white;
+  border-radius: 10px;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+}
+.button-grade {
+  background-color: white;
+  border: 3px solid white;
+  border-radius: 10px;
+  color: #343434;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+}
+.model-select {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: .5em;
+}
+
+.upload-container label {
+  background-color: white;
+  border: 3px solid white;
+  border-radius: 10px;
+  color: #343434;
+  padding: 8.5px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.container{
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: .5em;
+  padding-top: 0.5em;
+  
+}
+#upload {
+  display: none;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
