@@ -1,9 +1,39 @@
 import './App.css';
 import React, { useState } from "react";
-
-
+import { Cloudinary } from "@cloudinary/url-gen";
+import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
 function App() {
+  const [publicId, setPublicId] = useState("");
+  // Replace with your own cloud name
+  const [cloudName] = useState("dg36gbgkx");
+  // Replace with your own upload preset
+  const [uploadPreset] = useState("hwljeewm");
+  const [uwConfig] = useState({
+    cloudName,
+    uploadPreset
+    // cropping: true, //add a cropping step
+    // showAdvancedOptions: true,  //add advanced options (public_id and tag)
+    // sources: [ "local", "url"], // restrict the upload sources to URL and local files
+    // multiple: false,  //restrict upload to a single file
+    // folder: "user_images", //upload files to the specified folder
+    // tags: ["users", "profile"], //add the given tags to the uploaded files
+    // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
+    // clientAllowedFormats: ["images"], //restrict uploading to image files only
+    // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+    // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
+    // theme: "purple", //change to a purple theme
+  });
+
+  // Create a Cloudinary instance and set your cloud name.
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName
+    }
+  });
+console.log(publicId);
+  const myImage = cld.image(publicId);
   return (
+
     <div className="App">
       <header className="App-header">
         <div className='grid-container'>
@@ -14,115 +44,14 @@ function App() {
           </div>
           <div className='grid-item'>
             <div className='demonstration-box'>
-              <ImageUpload />
+              <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
             </div>
           </div>
         </div>
       </header>
     </div>
+
   );
 }
 
 export default App;
-
-function ImageUpload() {
-  const [selectedButton, setSelectedButton] = useState(null);
-
-  const handleButtonClick = (buttonName) => {
-    setSelectedButton(buttonName);
-  };
-  console.log(selectedButton);
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  // Function to handle file selection
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  const grade = () => {
-    if (selectedButton == null || selectedImage == null) {
-      alert("fuck")
-    }
-    else {
-      alert("grade is Allahhhhhhhhh");
-    }
-
-  }
-  return (
-    <div>
-      <div class="model-select">
-        <button
-          className='button'
-          onClick={() => handleButtonClick("InceptionV3")}
-
-          style={{ backgroundColor: selectedButton === "InceptionV3" ? 'white' : '#343434', color: selectedButton === "InceptionV3" ? '#343434' : 'white' }}
-        >
-          InceptionV3 {selectedButton === "InceptionV3"}
-        </button>
-        <button
-          className='button'
-          onClick={() => handleButtonClick("Xception")}
-          style={{ backgroundColor: selectedButton === "Xception" ? 'white' : '#343434', color: selectedButton === "Xception" ? '#343434' : 'white' }}
-        >
-          Xception {selectedButton === "Xception"}
-        </button>
-      </div>
-      <div class="container">
-        <div>
-          <div class="upload-container">
-            <input type="file" id='upload' accept="image/*" onChange={handleImageChange} />
-            <label for="upload"> Upload Image to Grade </label>
-          </div>
-        </div>
-        <div>
-          <button class="button-grade" onClick={grade}> Grade </button>
-        </div>
-      </div>
-      {selectedImage && (
-        <div>
-          <img
-            src={selectedImage}
-            alt="Preview"
-            style={{ maxWidth: '421px', maxHeight: '487px', border: '3px solid white', borderRadius: '25px', padding: '2px', marginTop: '.5em' }}
-          />
-        </div>
-      )}
-    </div>
-  );
-}
-
-
-function ModelSelector() {
-  const [selectedButton, setSelectedButton] = useState(null);
-
-  const handleButtonClick = (buttonName) => {
-    setSelectedButton(buttonName);
-  };
-  console.log(selectedButton);
-  return (
-    <div class="model-select">
-      <button
-        className='button'
-        onClick={() => handleButtonClick("InceptionV3")}
-
-        style={{ backgroundColor: selectedButton === "InceptionV3" ? 'white' : '#343434', color: selectedButton === "InceptionV3" ? '#343434' : 'white' }}
-      >
-        InceptionV3 {selectedButton === "InceptionV3"}
-      </button>
-      <button
-        className='button'
-        onClick={() => handleButtonClick("Xception")}
-        style={{ backgroundColor: selectedButton === "Xception" ? 'white' : '#343434', color: selectedButton === "Xception" ? '#343434' : 'white' }}
-      >
-        Xception {selectedButton === "Xception"}
-      </button>
-    </div>
-  );
-}
